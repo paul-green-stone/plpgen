@@ -85,7 +85,7 @@ The `Person_match` operation provides a way to compare two persons specified as 
 
 **Return value**: *0* if two persons IDs are the same, *-1*  if the are different
 
-### Person_set_ID
+### Person_regen_ID
 
 ```C
 void Person_regen_ID(Person_t person);
