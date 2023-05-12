@@ -17,6 +17,9 @@
 
 typedef struct _person* Person_t;
 
+/* Initialize a plpgen module */
+extern void plpgen_init(void);
+
 /* Allocate a new instance of a Person data type */
 extern Person_t Person_new(u_int8_t flags);
 

@@ -18,6 +18,16 @@
 
 ## API
 
+### plpgen_init
+
+```C
+void plpgen_init(void);
+```
+
+The `plpgen_init` operation initializes the module, i.e., it initializes a random number generator.
+
+**Return value**: none
+
 ### Person_new
 
 ```C
@@ -123,9 +133,7 @@ Before you start working with the module, you need to initialize a random number
 
 ```C
 /* Somewhere in the main function before calling plpgen functions */
-time_t t;
-
-srand((unsigned) time(&t));
+plpgen_init();
 ```
 
 you don't need to include `<time.t>`, it's included in the `"plpgen.h"` header file.

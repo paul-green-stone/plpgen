@@ -1,11 +1,7 @@
 #include "plpgen.h"
 
 int main(int argc, char** argv) {
-    /* Random number generator initialization */
-    time_t t;
-
-    srand((unsigned) time(&t));
-
+    plpgen_init();
 
     Person_t person_m = Person_new(MALE);
     Person_t person_f = Person_new(0);

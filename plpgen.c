@@ -94,6 +94,15 @@ static void generate_ID(char* buffer) {
 /* ================================================================ */
 /* ================================================================ */
 
+void plpgen_init(void) {
+    /* Random number generator initialization */
+    time_t t;
+
+    srand((unsigned) time(&t));
+
+    return ;
+}
+
 Person_t Person_new(u_int8_t flags) {
     Person_t person = NULL;
 
@@ -214,7 +223,7 @@ int Person_match(const Person_t person_1, const Person_t person_2) {
     int result = -1;
 
     if ((person_1 != NULL) && (person_2 != NULL)) {
-        return (result = strcmp(person_1->id, person_2->id));
+        result = strcmp(person_1->id, person_2->id);
     }
     else {
         warn_with_user_msg(__func__, "provided person is NULL");
