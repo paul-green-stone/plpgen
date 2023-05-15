@@ -14,7 +14,7 @@ guard/$(OBJDIR)/guard.o:
 	$(MAKE) -C guard
 
 test: $(OBJDIR)/main.o libplpgen.a
-	$(cc) -o a.out -L. -lplpgen $(OBJDIR)/main.o
+	$(cc) -o a.out $(OBJDIR)/main.o -L. -lplpgen
 
 $(OBJDIR)/main.o: main.c
 	$(cc) -g $(CFLAGS) -o $(OBJDIR)/main.o main.c
