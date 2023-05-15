@@ -55,4 +55,4 @@ dkms.conf
 
 # Miscellaneous
 .vscode
-temp
+objects

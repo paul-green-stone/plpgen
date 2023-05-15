@@ -1,26 +1,27 @@
 cc = gcc
-objs = temp/plpgen.o guard/temp/guard.o
-dirs = temp
-CFLAGS = -O1
+OBJDIR = objects
+CFLAGS = -c -Wall -O1 -fpic
+AR = ar
+ARFLAGS = -r -c
 
-# Object files
-temp/plpgen.o: plpgen.h plpgen.c guard/temp/guard.o
-	$(CC) -c -g -o temp/plpgen.o plpgen.c
+lib: $(OBJDIR)/plpgen.o
+	$(AR) $(ARFLAGS) libplpgen.a $(OBJDIR)/*.o guard/$(OBJDIR)/*.o
 
-guard/temp/guard.o:
+$(OBJDIR)/plpgen.o: plpgen.h plpgen.c guard/$(OBJDIR)/guard.o
+	$(cc) -g $(CFLAGS) -o $(OBJDIR)/plpgen.o plpgen.c
+
+guard/$(OBJDIR)/guard.o:
 	$(MAKE) -C guard
 
-# If there is a main.c file
-test: temp/main.o $(objs)
-	$(CC) -o a.out temp/main.o $(objs)
+test: $(OBJDIR)/main.o libplpgen.a
+	$(cc) -o a.out -L. -lplpgen $(OBJDIR)/main.o
 
-temp/main.o: main.c $(objs)
-	$(CC) -c -g -o temp/main.o main.c
+$(OBJDIR)/main.o: main.c
+	$(cc) -g $(CFLAGS) -o $(OBJDIR)/main.o main.c
 
 .PHONY: clean
-
 clean:
-	rm -rf temp ./*.o a.out
-	rm -rf guard/temp
+	rm -rf $(OBJDIR) ./*.o *.a *.out
+	rm -rf guard/$(OBJDIR) guard/*.o guard/*.a
 
-$(shell mkdir -p $(dirs))
+$(shell mkdir -p $(OBJDIR))
