@@ -5,7 +5,7 @@ AR = ar
 ARFLAGS = -r -c
 
 lib: $(OBJDIR)/plpgen.o
-	$(AR) $(ARFLAGS) libplpgen.a $(OBJDIR)/*.o guard/$(OBJDIR)/*.o
+	$(AR) $(ARFLAGS) libplpgen.a $(OBJDIR)/plpgen.o guard/$(OBJDIR)/guard.o
 
 $(OBJDIR)/plpgen.o: plpgen.h plpgen.c guard/$(OBJDIR)/guard.o
 	$(cc) -g $(CFLAGS) -o $(OBJDIR)/plpgen.o plpgen.c
