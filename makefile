@@ -5,13 +5,13 @@ AR = ar
 ARFLAGS = -r -c
 
 lib: $(OBJDIR)/plpgen.o
-	$(AR) $(ARFLAGS) libplpgen.a $(OBJDIR)/plpgen.o guard/$(OBJDIR)/guard.o
+	$(AR) $(ARFLAGS) libplpgen.a $(OBJDIR)/plpgen.o $(OBJDIR)/guard.o
 
-$(OBJDIR)/plpgen.o: plpgen.h plpgen.c guard/$(OBJDIR)/guard.o
+$(OBJDIR)/plpgen.o: plpgen.h plpgen.c $(OBJDIR)/guard.o
 	$(cc) -g $(CFLAGS) -o $(OBJDIR)/plpgen.o plpgen.c
 
-guard/$(OBJDIR)/guard.o:
-	$(MAKE) -C guard
+$(OBJDIR)/guard.o: guard/guard.h guard/guard.c
+	$(cc) -g $(CFLAGS) -o $(OBJDIR)/guard.o guard/guard.c
 
 test: $(OBJDIR)/main.o libplpgen.a
 	$(cc) -o a.out $(OBJDIR)/main.o -L. -lplpgen
@@ -22,6 +22,5 @@ $(OBJDIR)/main.o: main.c
 .PHONY: clean
 clean:
 	rm -rf $(OBJDIR) ./*.o *.a *.out
-	rm -rf guard/$(OBJDIR) guard/*.o guard/*.a
 
 $(shell mkdir -p $(OBJDIR))
